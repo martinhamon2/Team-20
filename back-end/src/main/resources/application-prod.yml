@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: ${DATASOURCE_URL}/${DATASOURCE_DBNAME}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.${DATASOURCE_TYPE}Dialect
+    show-sql: false
+
+cors:
+  allowed-origins:
+    - https://front-end-team18-wpp-team-18.apps.okd.ucll.cloud
+    - https://front-end-dev-wpp-team-18.apps.okd.ucll.cloud
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+
+flyway:
+  user: ${DATASOURCE_USERNAME}
+  password: ${DATASOURCE_PASSWORD}
+  schemas: public
+  url: ${DATASOURCE_URL}/${DATASOURCE_DBNAME}
+  locations: classpath:db/migration
+  baselineOnMigrate: true
