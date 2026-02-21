@@ -1,0 +1,28 @@
+{
+    "header": {
+        "default": {
+            "home": "Home",
+            "attractions" : "Attractions",
+            "wait-times": "Wait Times"
+        },
+        "admin-panel": {
+            "admin-panel": "Admin Panel",
+            "home": "Home",
+            "attraction-manager": "Attraction Manager",
+            "attraction-creation": "Attraction Creation",
+            "spare-part-manager": "Spare Parts Manager"
+        },
+        "account-navigation": {
+            "account-navigation": "account navigation",
+            "login": "Login",
+            "signup": "Signup",
+            "logout": "Logout",
+            "admin-panel": "Admin Panel",
+            "leave-admin-panel": "Leave Admin Panel"
+        }
+    },
+    "home": {
+        "title": "Welcome Home",
+        "description": "This is the home page"
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "header": {
+        "default": {
+            "home": "Home",
+            "attractions": "Attracties",
+            "wait-times": "Wachttijden"
+        },
+        "admin-panel": {
+            "admin-panel": "Beheerderspaneel",
+            "home": "Home",
+            "attraction-manager": "Attractiebeheer",
+            "attraction-creation": "Attractie Aanmaken",
+            "spare-part-manager": "Onderdelenbeheer"
+        },
+        "account-navigation": {
+            "account-navigation": "accountnavigatie",
+            "login": "Inloggen",
+            "signup": "Registreren",
+            "logout": "Uitloggen",
+            "admin-panel": "Beheerderspaneel",
+            "leave-admin-panel": "Beheerderspaneel Verlaten"
+        }
+    },
+    "home": {
+        "title": "Welkom Thuis",
+        "description": "Dit is de startpagina"
+    }
+}

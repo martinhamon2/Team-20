@@ -1,0 +1,246 @@
+.formContainer {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: sans-serif;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.inputGroup label,
+.sectionLabel {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+:global(.dark) .inputGroup label,
+:global(.dark) .sectionLabel {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.required {
+  color: #d32f2f;
+}
+
+.inlineError {
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.inputGroup input,
+.addPartRow input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.timeInputContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.timeField {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timeField input {
+  width: 60px;
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0;
+}
+
+.checkboxGroup label {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #333;
+}
+
+:global(.dark) .checkboxGroup label {
+  color: white;
+}
+
+.sparePartsSection {
+  padding-top: 0.5rem;
+}
+
+.addPartRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.5rem;
+}
+
+.addPartRow input {
+  flex: 1;
+}
+
+.partsList {
+  margin-top: 1rem;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+:global(.dark) .partsList {
+  background-color: #2c2f36;
+  border: 1px solid #eee;
+}
+
+.partsList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.partsList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.partsList li:last-child {
+  border-bottom: none;
+}
+
+.addButton {
+  padding: 0 15px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.removeButton {
+  background: white;
+  border: 1px solid #ffcccc;
+  color: #d32f2f;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+
+:global(.dark) .removeButton {
+  background: #d32f2f;
+  border: 1px solid #ffcccc;
+  color: white;
+}
+
+.removeButton:hover {
+  background-color: #fff5f5;
+  border-color: #d32f2f;
+}
+
+:global(.dark) .removeButton:hover {
+  background-color: #d14848;
+  border-color: #ffffff;
+}
+
+.submitButton {
+  background-color: #1a3c8e;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #122c6b;
+}
+
+.submitButton:disabled {
+  background-color: #a0c4eb;
+  cursor: not-allowed;
+}
+
+.statusMessage {
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 0 0 4px 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: -1px;
+}
+
+:global(.dark) .dropdownList {
+  background-color: #2c2f36;
+  border: 1px solid #ccc;
+}
+
+.dropdownItem {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 0.95rem;
+  transition: background-color 0.1s;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f4ff;
+}
+
+:global(.dark) .dropdownItem:hover {
+  background-color: #565a64;
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+}

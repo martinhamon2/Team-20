@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  /* added this because the inner themeContext div did not want to fill out the whole screen */
+  display: flex;
+  flex-direction: column;
+}
+
+@layer base {
+  table {
+    @apply border border-gray-900 border-collapse w-full text-sm table-fixed;
+  }
+
+  th,
+  td {
+    @apply border border-gray-900 px-3 py-2 text-left;
+  }
+
+  th {
+    @apply uppercase;
+  }
+
+  thead {
+    @apply bg-gray-300;
+  }
+
+  main {
+    @apply m-8;
+  }
+
+  input {
+    @apply border  border-gray-900/80 bg-white rounded-md;
+  }
+}
+
+@layer components {
+  .pageTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .light {
+    background-color: white;
+    color: black;
+  }
+
+  .dark {
+    background-color: #383b43;
+    color: white;
+  }
+
+  /* added this because the inner themeContext div did not want to fill out the whole screen */
+  .light,
+  .dark {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dark table {
+    background-color: #383b43;
+    border-color: #6b7280;
+  }
+
+  .dark th,
+  .dark td {
+    border-color: #6b7280;
+    color: white;
+    background-color: transparent;
+  }
+
+  .dark thead {
+    background-color: #2c2f36;
+  }
+
+  .dark tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .dark input {
+    background-color: #2c2f36;
+    color: white;
+    border-color: #6b7280;
+  }
+
+  .dark input::placeholder {
+    color: #9ca3af;
+  }
+
+  .dark input:focus {
+    border-color: white;
+    background-color: #31353d;
+  }
+
+  .dark .pageSelect {
+    background-color: #2c2f36;
+    color: white;
+    border-color: #6b7280;
+  }
+
+  .dark .pageSelect option {
+    background-color: #383b43;
+    color: white;
+  }
+
+  .dark .pageSelect:focus {
+    border-color: white;
+  }
+
+  .dark .hideNoInfoButton {
+    background-color: #450a0a;
+    color: #fca5a5;
+    border-color: #fca5a5;
+  }
+
+  .infoText {
+    color: black;
+  }
+
+  .noInfoText {
+    color: red;
+  }
+
+  .dark .noInfoText {
+    color: lightcoral;
+  }
+
+  .dark .parkOverviewDropDown {
+    background-color: #2c2f36;
+    color: white;
+    border-color: #2c2f36;
+  }
+
+  .dark .parkOverviewDropDownHover:hover {
+    background-color: #565a64;
+    color: white;
+    border-color: #2c2f36;
+  }
+}
