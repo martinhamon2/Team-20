@@ -1,1 +1,0 @@
-ALTER TABLE registrations ADD date_of_birth VARCHAR(10);

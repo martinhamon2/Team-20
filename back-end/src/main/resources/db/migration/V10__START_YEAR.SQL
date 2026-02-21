@@ -1,1 +1,0 @@
-ALTER TABLE registrations ADD start_year INT;
