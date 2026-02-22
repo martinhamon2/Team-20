@@ -7,8 +7,14 @@ The contents should look like this:
 ```properties
 NEXT_PUBLIC_API_URL = http://localhost:3000
 ```
-
 This will be the API URL where your back-end is running.
+
+Also do not forgot to run these commands to install the packages and start up the application : 
+
+```Install & Start-up
+npm i
+npm run dev
+```
 
 # back-end
 
