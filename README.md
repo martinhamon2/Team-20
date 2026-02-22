@@ -18,7 +18,7 @@ npm run dev
 
 # back-end
 
-## Starting-up
+## Database
 
 Define the name of your local database and it's default user's name and password in  `application.yaml`
 
