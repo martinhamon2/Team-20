@@ -17,9 +17,8 @@
 | 04 Injections   |          |          |          |
 | 05 Vulnerable & Outdated Components  |          |          |          |
 | 06 & 07 Session Management & Clickjacking |          |          |          |
-| Secure CI / CD   |          |          |          |
-| Logging & Monitoring  |          |          |          |
-
+| 08 Exception Handling, Logging & Monitoring  |          |          |          |
+| 09 Secure CI / CD   |          |          |          |
 
 
 # 02 Cryptography 
@@ -129,19 +128,36 @@ Explain the existing and newly implemented security controls used to protect use
 Are there still some threats you can identify but not protect from (so, where do you accept the risk)?
 
 
-# 08 Placeholder
-# 09 Placeholder
-# 10 Placeholder
+# 08 Exception Handling, Logging & Monitoring 
+Explain how you perform exception handling, what was already in your project and what did you change w.r.t. this course.
+
+Use your framework's default logging framework (for Spring Boot, this is Logback) for 2 types of log: an **app.log** and a **security.log** (for security related events). Make sure you use structured JSON logging when you write to log files (you can keep plain text logging for your console logging). Take into account the best practices as seen in the lab. 
+
+Also, set up an ELK infrastructure with docker compose and have a Filebeat read in your log files. In the video (as a proof of work) I need to see you performing a signup for the same user or failed login attempts for the same user and seeing these log events pop up in Kibana. You don't need to setup Alerting (based on rules).
+
+Add to appendix: 
+- an example app.log file from your running application
+- an example security.log file from your running application (showing at least a brute force attempt)
+
+# 09 Secure CI / CD
+Evaluate the OWASP CI/CD Top 10 against this course's project or another project if you have another project where your pipeline goes further (typically for the Software Engineering course).
+
+# 10 Security Misconfiguration & Insecure Design
+We did not expicitly handle both categories from OWASP Top 10 (version 2025), but they were all over the place during the course. Can you identify - per category - at least two mitigations you performed that belong to that category or that you would tackle in case you would have to start whole over again.
 
 # Conclusion 
 Write a conclusion (most important thing you changed and learned) and identify at least one (your best) example (per security principle) of how you implemented the security principles.
+
+Also, working together, what was the main point of discussion you had the hardest time agreeing upon?
 
 # Appendices
 These appendices must be zipped into an appendices-teamX.zip folder and uploaded on Toledo along with the report and video. The zip file contains the following folders (and respective files):
 
 ## Configuration Files
 - .env file , tsconfig, ...
-- application.properties / 
+- application.properties / application.yml
+- docker compose files
+- filebeat.yml
 
 ## API
 - "yyyymmdd API enpoints" (when doing the assessment in week 3)
