@@ -1,6 +1,4 @@
 package be.ucll.fs.project.controller.dto;
-
-import be.ucll.fs.project.unit.model.Role;
 import jakarta.validation.constraints.NotBlank;
 
 public record UserInput(
@@ -8,7 +6,5 @@ public record UserInput(
         String username,
 
         @NotBlank(message = "Password is required")
-        String password,
-
-        Role role
+        String password
 ) {}

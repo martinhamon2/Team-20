@@ -53,7 +53,7 @@ public class UserServiceTest {
 
     @Test
     void signup_shouldCreateUser_whenUsernameIsUnique() {
-        UserInput input = new UserInput("newUser", "password", Role.USER);
+        UserInput input = new UserInput("newUser", "password");
         when(userRepository.existsById("newUser")).thenReturn(false);
         when(passwordEncoder.encode("password")).thenReturn("encodedPass");
         when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArguments()[0]);
