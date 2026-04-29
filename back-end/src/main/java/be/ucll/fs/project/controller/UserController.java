@@ -17,10 +17,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 //@CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
 @RestController
@@ -92,4 +94,13 @@ public class UserController {
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         return ResponseEntity.ok(Map.of("message", "Logout successful"));
     }
+
+    @Operation(summary = "Get logged in user")
+    @ApiResponse(responseCode = "200", description = "Gets profile of the logged in user")
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/me")
+    public Optional<User> getMe() {
+        return userService.getMe();
+    }
+    
 }

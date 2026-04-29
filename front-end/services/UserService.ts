@@ -50,10 +50,24 @@ const signup = async (user: User): Promise<User> => {
   return await response.json();
 };
 
+const getMe = async (): Promise<User> => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
+    credentials: 'include', 
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error?.message || 'getMe failed');
+  }
+
+  return await response.json();
+};
+
 const UserService = {
   authenticate,
   logout,
-  signup
+  signup,
+  getMe,
 };
 
 export default UserService;
