@@ -49,7 +49,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Parameter(description = "User details for registration") @RequestBody @Valid UserInput userInput) {
         try {
-            Role roleToAssign = (userInput.role() != null) ? userInput.role() : Role.USER;
+            Role roleToAssign = Role.USER;
             User newUser = userService.signup(roleToAssign, userInput);
             return ResponseEntity.ok(newUser);
         } catch (RuntimeException e) {

@@ -26,7 +26,7 @@ spring:
         jwt:
           authority-prefix:
   datasource:
-    url: "jdbc:postgresql://localhost:5432/db-project-groep-3-13"
+    url: "jdbc:postgresql://localhost:5432/db-project-team-20"
     username: "postgres"
     password: "postgres"
 
