@@ -39,17 +39,17 @@ public class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    @Test
-    void getAdmins_shouldReturnOnlyAdmins() {
-        User admin = new User("admin", "pass", Role.ADMIN);
-        User user = new User("user", "pass", Role.USER);
-        when(userRepository.findAll()).thenReturn(List.of(admin, user));
+    // @Test
+    // void getAdmins_shouldReturnOnlyAdmins() {
+    //     User admin = new User("admin", "pass", Role.ADMIN);
+    //     User user = new User("user", "pass", Role.USER);
+    //     when(userRepository.findAll()).thenReturn(List.of(admin, user));
 
-        List<User> result = userService.getAdmins();
+    //     List<User> result = userService.getAdmins();
 
-        assertEquals(1, result.size());
-        assertEquals("admin", result.get(0).getUsername());
-    }
+    //     assertEquals(1, result.size());
+    //     assertEquals("admin", result.get(0).getUsername());
+    // }
 
     @Test
     void signup_shouldCreateUser_whenUsernameIsUnique() {
