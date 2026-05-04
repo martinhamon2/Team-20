@@ -1,0 +1,24 @@
+
+filebeat.inputs:
+  - type: filestream
+    enabled: true
+    id: app-logs
+    paths:
+      - /logs/app.log
+    parsers:
+      - ndjson:
+          keys_under_root: true
+          add_error_key: true
+
+  - type: filestream
+    enabled: true
+    id: security-logs
+    paths:
+      - /logs/security.log
+    parsers:
+      - ndjson:
+          keys_under_root: true
+          add_error_key: true
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]

@@ -34,12 +34,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "Get all admins")
-    @ApiResponse(responseCode = "200", description = "List of users with ADMIN role")
-    @GetMapping("/admin")
-    public List<User> getAdmins() {
-        return userService.getAdmins();
-    }
+    // 
+    // @Operation(summary = "Get all admins")
+    // @ApiResponse(responseCode = "200", description = "List of users with ADMIN role")
+    // @GetMapping("/admin")
+    // public List<User> getAdmins() {
+    //     return userService.getAdmins();
+    // }
 
     @Operation(summary = "Sign up a new user")
     @ApiResponse(responseCode = "200", description = "The created user")

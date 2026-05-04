@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import be.ucll.fs.project.exception.SecurityException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +33,19 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
-
-    public List<User> getAdmins() {
-        List <User> admins = new ArrayList<>();
-        for (User user : userRepository.findAll()) {
-            if (user.getRole() == Role.ADMIN) {
-                admins.add(user);
-            }
-        }
-        return admins;
-    }
+    // Deze shit is niet secure lmao
+    // public List<User> getAdmins() {
+    //     List <User> admins = new ArrayList<>();
+    //     for (User user : userRepository.findAll()) {
+    //         if (user.getRole() == Role.ADMIN) {
+    //             admins.add(user);
+    //         }
+    //     }
+    //     return admins;
+    // }
 
     public AuthenticationResponse authenticate(String username, String password) {
+        try {
         final var usernamePasswordAuthentication = new UsernamePasswordAuthenticationToken(username, password);
         final var authentication = authenticationManager.authenticate(usernamePasswordAuthentication);
         final var user = ((UserDetailsImpl) authentication.getPrincipal()).user();
@@ -54,11 +56,14 @@ public class UserService {
                 user.getUsername(),
                 user.getRole()
         );
+        } catch (Exception e) {
+            throw new SecurityException("Failed login attempt for user: " + username);
+        }
     }
 
     public User signup(Role role, UserInput userInput) {
         if (userRepository.existsById(userInput.username())){
-            throw new RuntimeException("Username is already in use.");
+            throw new SecurityException("Signup rejected, username already taken: " + userInput.username());
         }
 
         final var hashedPassword = passwordEncoder.encode(userInput.password());
