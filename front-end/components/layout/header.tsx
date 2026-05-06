@@ -137,6 +137,11 @@ export default function Header() {
               {t("header.default.wait-times")}
             </Link>
           </li>
+          <li className={styles.navElement}>
+            <Link href="/vuln" className={styles.navLink}>
+              Check User Information
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>
