@@ -39,5 +39,5 @@ CREATE TABLE attraction_spare_part (
 CREATE TABLE user_table (
     username VARCHAR(255) PRIMARY KEY,
     password VARCHAR(255),
-    role VARCHAR(50)
+    role TEXT -- VARCHAR(50) -> TEXT to allow the db to store an XSS script
 );
