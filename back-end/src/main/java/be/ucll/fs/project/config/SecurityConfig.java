@@ -65,6 +65,8 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
                         // Allow Test Utils (if you have them)
                         .requestMatchers("/test-utils/**").permitAll()
+                        // Allow SSRF validation endpoint
+                        .requestMatchers("/vuln/url-validate").permitAll()
                         // Lock down everything else
                         .anyRequest().authenticated()
                 )

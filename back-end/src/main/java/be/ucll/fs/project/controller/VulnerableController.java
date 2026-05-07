@@ -1,5 +1,8 @@
 package be.ucll.fs.project.controller;
 
+import java.net.InetAddress;
+import java.net.URI;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -7,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import be.ucll.fs.project.repository.jdbc.JdbcVulnerableRepository;
 import be.ucll.fs.project.unit.model.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/vuln")
@@ -22,4 +28,23 @@ public class VulnerableController {
     public User findUserByUsername(@RequestParam String username) {
         return jdbcRepository.findUserByUsername(username);
     }
+
+    @PostMapping("/url-validate")
+    public String urlValidate(@RequestBody String url) {
+      try {
+          URI uri = new URI(url.trim());
+          String scheme = uri.getScheme();
+          String host = uri.getHost();
+
+          if (host == null || scheme == null) return "reject";
+          if (!scheme.equals("http") && !scheme.equals("https")) return "reject";
+          InetAddress address = InetAddress.getByName(host);
+          if (address.isLoopbackAddress() || address.isSiteLocalAddress()) return "reject";
+
+          return "allow";
+      } catch (Exception e) {
+          return "reject";
+      }
+    }
+    
 }
