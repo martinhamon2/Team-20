@@ -33,7 +33,18 @@ export default function UrlValidatePage() {
         </button>
       </div>
 
-      {result && <p>{result}</p>}
+      {result && (
+        <p className={`
+            border p-3 w-40 text-center rounded my-3
+            ${result === 'allow'
+              ? 'bg-green-100 border-green-300 text-green-900'
+              : 'bg-red-100 border-red-300 text-red-900'
+            }
+          `}
+        >
+          {result}
+        </p>
+      )}
     </main>
   );
 }
