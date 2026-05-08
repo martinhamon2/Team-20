@@ -50,10 +50,30 @@ const signup = async (user: User): Promise<User> => {
   return await response.json();
 };
 
+const uploadAvatar = async (username: string, avatarUrl: string): Promise<{ message: string; path?: string }> => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${encodeURIComponent(username)}/avatar`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ avatarUrl }),
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(data?.message || 'Failed to update avatar');
+  }
+  return data;
+};
+
+const getAvatarUrl = (username: string): string =>
+  `${process.env.NEXT_PUBLIC_API_URL}/users/${encodeURIComponent(username)}/avatar`;
+
 const UserService = {
   authenticate,
   logout,
-  signup
+  signup,
+  uploadAvatar,
+  getAvatarUrl,
 };
 
 export default UserService;

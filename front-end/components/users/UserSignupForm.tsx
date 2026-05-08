@@ -12,6 +12,7 @@ const UserSignupForm: React.FC = () => {
 	const [username, setUsername] = useState("");
 	const [password1, setPassword1] = useState("");
 	const [password2, setPassword2] = useState("");
+	const [avatarUrl, setAvatarUrl] = useState("");
 	const [usernameError, setUsernameError] = useState<string | null>(null);
 	const [passwordError, setPasswordError] = useState<string | null>(null);
 	const [StatusMessage, setStatusMessage] = useState<StatusMessage[] | null>(null);
@@ -68,7 +69,7 @@ const UserSignupForm: React.FC = () => {
 			return;
 		}
 
-		const user = {username: username, password: password1, role: Role.USER};
+		const user = {username: username, password: password1, role: Role.USER, avatarUrl: avatarUrl || undefined};
 		try {
 			await UserService.signup(user);
 
@@ -165,6 +166,23 @@ const UserSignupForm: React.FC = () => {
 					{passwordError && <span className="text-red-800">{passwordError}</span>}
 				</div>
 			)}
+
+			<div className={styles.inputGroup}>
+				<label htmlFor="avatarUrl" className={styles.inputLabel}>
+					Avatar picture URL <span className="text-gray-400">(optional)</span>
+				</label>
+				<input
+					type="url"
+					id="avatarUrl"
+					className={styles.inputField}
+					placeholder="https://example.com/avatar.png"
+					value={avatarUrl}
+					onChange={(e) => setAvatarUrl(e.target.value)}
+				/>
+				<span className="text-gray-500 text-sm">
+					The image will be downloaded and stored on our servers.
+				</span>
+			</div>
 
 			<button type="submit" className={styles.loginButton}>
 				Signup

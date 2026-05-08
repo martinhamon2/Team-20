@@ -23,14 +23,16 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final AvatarService avatarService;
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager,
-                       JwtService jwtService) {
+                       JwtService jwtService, AvatarService avatarService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.avatarService = avatarService;
     }
 
     // Deze shit is niet secure lmao
@@ -72,6 +74,13 @@ public class UserService {
                 hashedPassword,
                 role
         );
+
+        if (userInput.avatarUrl() != null && !userInput.avatarUrl().isBlank()) {
+            try {
+                String filename = avatarService.downloadAndStore(userInput.username(), userInput.avatarUrl());
+                user.setAvatarPath(filename);
+            } catch (Exception e) {}
+        }
 
         return userRepository.save(user);
     }

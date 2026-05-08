@@ -78,6 +78,15 @@ export default function AdminHeader() {
                 </Link>
               )}
               {user && (
+                <Link
+                  href="/profile"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={styles.sidebarLink}
+                >
+                  My Profile
+                </Link>
+              )}
+              {user && (
                 <button
                   onClick={handleLogout}
                   className={`${styles.sidebarLink} ${styles.logoutButton}`}

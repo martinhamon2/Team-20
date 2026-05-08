@@ -24,8 +24,18 @@ const getUserByUsername = async (username: string): Promise<User> => {
   return await response.json();
 };
 
+const validateUrl = async (url: string): Promise<string> => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/vuln/url-validate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body: url,
+  });
+  return response.text();
+};
+
 const VulnerableService = {
-  getUserByUsername
+  getUserByUsername,
+  validateUrl,
 };
 
 export default VulnerableService;

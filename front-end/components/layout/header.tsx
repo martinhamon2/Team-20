@@ -91,6 +91,15 @@ export default function Header() {
                 </Link>
               )}
               {user && (
+                <Link
+                  href="/profile"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={styles.sidebarLink}
+                >
+                  My Profile
+                </Link>
+              )}
+              {user && (
                 <button
                   onClick={handleLogout}
                   className={`${styles.sidebarLink} ${styles.logoutButton}`}
@@ -140,6 +149,11 @@ export default function Header() {
           <li className={styles.navElement}>
             <Link href="/vuln" className={styles.navLink}>
               Check User Information
+            </Link>
+          </li>
+          <li className={styles.navElement}>
+            <Link href="/vuln/url-validate" className={styles.navLink}>
+              URL Validate
             </Link>
           </li>
         </ul>

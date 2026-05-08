@@ -43,6 +43,7 @@ export type User = {
   username: string;
   password: string;
   role: Role;
+  avatarUrl?: string;
 };
 
 export type StatusMessage = {

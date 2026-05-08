@@ -24,6 +24,7 @@
 /back-end.mvn/wrapper/maven-wrapper.jar
 /back-end.mvn/wrapper/maven-wrapper.properties
 /back-end/**/data
+/back-end/uploads
 
 ##### OTHER #####
 .idea
