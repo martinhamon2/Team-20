@@ -2,6 +2,7 @@ package be.ucll.fs.project.controller;
 
 import be.ucll.fs.project.controller.dto.AuthenticationRequest;
 import be.ucll.fs.project.controller.dto.AuthenticationResponse;
+import be.ucll.fs.project.controller.dto.ChangePasswordInput;
 import be.ucll.fs.project.controller.dto.UserInput;
 import be.ucll.fs.project.repository.UserRepository;
 import be.ucll.fs.project.service.AvatarService;
@@ -127,6 +128,17 @@ public class UserController {
         if (lower.endsWith(".png"))  mediaType = MediaType.IMAGE_PNG;
         if (lower.endsWith(".gif"))  mediaType = MediaType.IMAGE_GIF;
         return ResponseEntity.ok().contentType(mediaType).body(resource);
+    }
+
+    @PostMapping("/{username}/password")
+    public ResponseEntity<?> changePassword(@PathVariable String username, @RequestBody @Valid ChangePasswordInput input) {
+        System.out.println("hello");
+        try {
+            userService.changePassword(username, input.currentPassword(), input.newPassword());
+            return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        }
     }
 
     @Operation(summary = "User logout")

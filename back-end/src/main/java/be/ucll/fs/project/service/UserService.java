@@ -5,16 +5,12 @@ import be.ucll.fs.project.controller.dto.UserInput;
 import be.ucll.fs.project.repository.UserRepository;
 import be.ucll.fs.project.unit.model.Role;
 import be.ucll.fs.project.unit.model.User;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import be.ucll.fs.project.exception.SecurityException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -83,5 +79,17 @@ public class UserService {
         }
 
         return userRepository.save(user);
+    }
+
+    public void changePassword(String username, String currentPassword, String newPassword) {
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new SecurityException("User not found"));
+
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new SecurityException("Current password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 }

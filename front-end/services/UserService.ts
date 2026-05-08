@@ -70,7 +70,7 @@ const getAvatarUrl = (username: string): string =>
 
 const changePassword = async (username: string, currentPassword: string, newPassword: string): Promise<void> => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${encodeURIComponent(username)}/password`, {
-    method: 'PATCH',
+    method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     body: JSON.stringify({ currentPassword, newPassword }),
