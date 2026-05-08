@@ -2,7 +2,6 @@ package be.ucll.fs.project.controller;
 
 import java.net.InetAddress;
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +29,6 @@ public class VulnerableController {
         return jdbcRepository.findUserByUsername(username);
     }
 
-    @GetMapping("/get/users")
-    public List<User> findUsersByUsername(@RequestParam String username) {
-        return jdbcRepository.findUsersByUsername(username);
-    }
-
     @PostMapping("/url-validate")
     public String urlValidate(@RequestBody String url) {
       try {
@@ -44,6 +38,8 @@ public class VulnerableController {
 
           if (host == null || scheme == null) return "reject";
           if (!scheme.equals("http") && !scheme.equals("https")) return "reject";
+          InetAddress address = InetAddress.getByName(host);
+          if (address.isLoopbackAddress() || address.isSiteLocalAddress()) return "reject";
 
           return "allow";
       } catch (Exception e) {

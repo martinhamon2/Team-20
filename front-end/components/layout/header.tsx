@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import styles from "@styles/header.module.css";
 import Image from "next/image";
@@ -10,23 +10,15 @@ import { Role } from "@types";
 import { Language } from "@components/language/languageSelector";
 import { useTranslations } from "use-intl";
 import { ThemeSelector } from "@components/theme/themeSelector";
-import UserService from "@services/UserService";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [imageError, setImageError] = useState(false);
-
   const pathname = usePathname();
   const router = useRouter();
   const context = useContext(AuthContext);
   if (!context) throw new Error("Header must be used within an AuthProvider");
   const { user, logout } = context;
   const t = useTranslations();
-  const avatarSrc = user ? UserService.getAvatarUrl(user.username) : undefined;
-
-  useEffect(() => {
-    setImageError(false);
-  }, [avatarSrc]);
 
   if (pathname.match(/^\/(.*\/)?admin/)) return null;
 
@@ -46,20 +38,10 @@ export default function Header() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className={styles.pill}
         >
-
-          {avatarSrc && !imageError ? (
-            <img 
-              src={avatarSrc} 
-              alt='' 
-              className="size-8 rounded-full" 
-              onError={() => setImageError(true)} 
-            />
-          ) : (
-            <div className={styles.userIconContainer}>
-              <div className={styles.userHead}></div>
-              <div className={styles.userBody}></div>
-            </div>
-          )}
+          <div className={styles.userIconContainer}>
+            <div className={styles.userHead}></div>
+            <div className={styles.userBody}></div>
+          </div>
 
           <span
             className={`${styles.pillText} ${

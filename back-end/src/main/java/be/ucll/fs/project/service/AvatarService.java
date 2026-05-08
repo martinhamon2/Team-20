@@ -54,6 +54,8 @@ public class AvatarService {
 
             if (host == null || scheme == null) return "reject";
             if (!scheme.equals("http") && !scheme.equals("https")) return "reject";
+            InetAddress address = InetAddress.getByName(host);
+            if (address.isLoopbackAddress() || address.isSiteLocalAddress()) return "reject";
 
             return "allow";
         } catch (Exception e) {
