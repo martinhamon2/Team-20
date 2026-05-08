@@ -10,6 +10,7 @@ import { Role } from "@types";
 import { Language } from "@components/language/languageSelector";
 import { useTranslations } from "use-intl";
 import { ThemeSelector } from "@components/theme/themeSelector";
+import UserService from "@services/UserService";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,6 +20,7 @@ export default function Header() {
   if (!context) throw new Error("Header must be used within an AuthProvider");
   const { user, logout } = context;
   const t = useTranslations();
+  const avatarSrc = user ? UserService.getAvatarUrl(user.username) : undefined;
 
   if (pathname.match(/^\/(.*\/)?admin/)) return null;
 
@@ -38,10 +40,15 @@ export default function Header() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className={styles.pill}
         >
-          <div className={styles.userIconContainer}>
-            <div className={styles.userHead}></div>
-            <div className={styles.userBody}></div>
-          </div>
+
+          {avatarSrc ? (
+            <img src={avatarSrc} alt='' className="size-8 rounded-full"  />
+          ) : (
+            <div className={styles.userIconContainer}>
+              <div className={styles.userHead}></div>
+              <div className={styles.userBody}></div>
+            </div>
+          )}
 
           <span
             className={`${styles.pillText} ${

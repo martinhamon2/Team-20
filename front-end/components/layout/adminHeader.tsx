@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Language } from "@components/language/languageSelector";
 import { useTranslations } from "use-intl";
 import { ThemeSelector } from "@components/theme/themeSelector";
+import UserService from "@services/UserService";
 
 export default function AdminHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,6 +20,7 @@ export default function AdminHeader() {
   }
   const { user, logout } = context;
   const t = useTranslations();
+  const avatarSrc = user ? UserService.getAvatarUrl(user.username) : undefined;
 
   const handleLogout = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -35,10 +37,15 @@ export default function AdminHeader() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className={styles.pill}
         >
-          <div className={styles.userIconContainer}>
-            <div className={styles.userHead}></div>
-            <div className={styles.userBody}></div>
-          </div>
+
+          {avatarSrc ? (
+            <img src={avatarSrc} alt='' className="size-8 rounded-full"  />
+          ) : (
+            <div className={styles.userIconContainer}>
+              <div className={styles.userHead}></div>
+              <div className={styles.userBody}></div>
+            </div>
+          )}
 
           <span
             className={`${styles.pillText} ${
