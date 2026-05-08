@@ -49,6 +49,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults()) // Keep CORS default if needed
+                .headers(h -> h.frameOptions(fo -> fo.deny()))
                 .authorizeHttpRequests(authorize -> authorize
                         // Allow public GET access to Attractions and SpareParts
                         .requestMatchers(HttpMethod.GET, "/attractions/**", "/spareParts/**").permitAll()
