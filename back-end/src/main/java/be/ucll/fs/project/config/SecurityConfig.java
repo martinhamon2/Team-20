@@ -59,12 +59,18 @@ public class SecurityConfig {
                         .requestMatchers("/error/**").permitAll()
                         // Allow all to login and signup
                         .requestMatchers("/users/login", "/users/signup", "/users/logout").permitAll()
+                        // Allow public avatar serving and the vulnerable SQL injection endpoint
+                        .requestMatchers(HttpMethod.GET, "/users/*/avatar", "/vuln/get/user").permitAll()
+                        // Avatar upload is public so the red team can demo SSRF without needing auth
+                        .requestMatchers(HttpMethod.POST, "/users/*/avatar").permitAll()
                         // Allow OpenAPI access
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         // Allow Swagger UI
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
                         // Allow Test Utils (if you have them)
                         .requestMatchers("/test-utils/**").permitAll()
+                        // Allow SSRF validation endpoint and other vuln endpoints
+                        .requestMatchers("/vuln/**").permitAll()
                         // Lock down everything else
                         .anyRequest().authenticated()
                 )

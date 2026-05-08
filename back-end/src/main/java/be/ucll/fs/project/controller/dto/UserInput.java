@@ -6,5 +6,7 @@ public record UserInput(
         String username,
 
         @NotBlank(message = "Password is required")
-        String password
+        String password,
+
+        String avatarUrl
 ) {}

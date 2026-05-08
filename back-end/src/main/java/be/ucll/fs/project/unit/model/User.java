@@ -21,6 +21,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "avatar_path")
+    private String avatarPath;
+
     protected User() {}
 
     public User(String username, String password, Role role) {
@@ -48,4 +51,8 @@ public class User {
     public Role getRole() { return role; }
 
     public void setRole(Role role) { this.role = role; }
+
+    public String getAvatarPath() { return avatarPath; }
+
+    public void setAvatarPath(String avatarPath) { this.avatarPath = avatarPath; }
 }

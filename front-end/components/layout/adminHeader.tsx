@@ -4,21 +4,30 @@ import Link from "next/link";
 import styles from "@styles/header.module.css";
 import Image from "next/image";
 import { AuthContext } from "@context/AuthContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Language } from "@components/language/languageSelector";
 import { useTranslations } from "use-intl";
 import { ThemeSelector } from "@components/theme/themeSelector";
+import UserService from "@services/UserService";
 
 export default function AdminHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  
   const router = useRouter();
   const context = useContext(AuthContext);
+
   if (!context) {
     throw new Error("Header must be used within an AuthProvider");
   }
   const { user, logout } = context;
   const t = useTranslations();
+  const avatarSrc = user ? UserService.getAvatarUrl(user.username) : undefined;
+
+  useEffect(() => {
+    setImageError(false);
+  }, [avatarSrc]);
 
   const handleLogout = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -35,10 +44,20 @@ export default function AdminHeader() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className={styles.pill}
         >
-          <div className={styles.userIconContainer}>
-            <div className={styles.userHead}></div>
-            <div className={styles.userBody}></div>
-          </div>
+
+          {avatarSrc && !imageError ? (
+            <img 
+              src={avatarSrc} 
+              alt='' 
+              className="size-8 rounded-full" 
+              onError={() => setImageError(true)} 
+            />
+          ) : (
+            <div className={styles.userIconContainer}>
+              <div className={styles.userHead}></div>
+              <div className={styles.userBody}></div>
+            </div>
+          )}
 
           <span
             className={`${styles.pillText} ${
@@ -75,6 +94,15 @@ export default function AdminHeader() {
                   className={styles.sidebarLink}
                 >
                   {t("header.account-navigation.login")}
+                </Link>
+              )}
+              {user && (
+                <Link
+                  href="/profile"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={styles.sidebarLink}
+                >
+                  My Profile
                 </Link>
               )}
               {user && (
