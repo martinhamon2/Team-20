@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import styles from "@styles/header.module.css";
 import Image from "next/image";
@@ -14,6 +14,8 @@ import UserService from "@services/UserService";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   const pathname = usePathname();
   const router = useRouter();
   const context = useContext(AuthContext);
@@ -21,6 +23,10 @@ export default function Header() {
   const { user, logout } = context;
   const t = useTranslations();
   const avatarSrc = user ? UserService.getAvatarUrl(user.username) : undefined;
+
+  useEffect(() => {
+    setImageError(false);
+  }, [avatarSrc]);
 
   if (pathname.match(/^\/(.*\/)?admin/)) return null;
 
@@ -41,8 +47,13 @@ export default function Header() {
           className={styles.pill}
         >
 
-          {avatarSrc ? (
-            <img src={avatarSrc} alt='' className="size-8 rounded-full"  />
+          {avatarSrc && !imageError ? (
+            <img 
+              src={avatarSrc} 
+              alt='' 
+              className="size-8 rounded-full" 
+              onError={() => setImageError(true)} 
+            />
           ) : (
             <div className={styles.userIconContainer}>
               <div className={styles.userHead}></div>
