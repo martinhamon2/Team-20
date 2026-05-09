@@ -1,0 +1,45 @@
+server:
+  port: 3000
+
+spring:
+  application:
+    name: my-little-project
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        auto_quote_keyword: true
+        format_sql: true
+    open-in-view: true
+  sql:
+    init:
+      mode: always
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          authority-prefix:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/db-project-team-20"
+    username: "postgres"
+    password: "postgres"
+  
+  mail:
+    host: localhost
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+cors:
+  allowed-origins:
+    - http://localhost:8080

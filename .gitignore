@@ -34,6 +34,7 @@
 *.ipr
 .vscode/
 .env*
+!/appendices/.env
 
 .DS_Store
 src/main/resources/application.yml
