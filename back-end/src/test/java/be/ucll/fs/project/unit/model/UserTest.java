@@ -11,12 +11,12 @@ public class UserTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("testUser", "testPassword", Role.ADMIN);
+        user = new User("testUser", "testPassword","test@email.be", Role.ADMIN);
     }
 
     @Test
     void givenNewDetails_whenUserIsConstructed_thenAllFieldsAreSetCorrectly() {
-        User user = new User("testUser2", "testPassword2", Role.USER);
+        User user = new User("testUser2", "testPassword2","test@email.be", Role.USER);
 
         assertEquals("testUser2", user.getUsername());
         assertEquals("testPassword2", user.getPassword());

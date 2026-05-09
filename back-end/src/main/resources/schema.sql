@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS password_reset_token;
+DROP TABLE IF EXISTS two_factor_code;
+DROP TABLE IF EXISTS two_factor_auth_code;
 DROP TABLE IF EXISTS attraction_spare_part;
 DROP TABLE IF EXISTS attraction;
 DROP TABLE IF EXISTS park;
@@ -39,6 +42,15 @@ CREATE TABLE attraction_spare_part (
 CREATE TABLE user_table (
     username VARCHAR(255) PRIMARY KEY,
     password VARCHAR(255),
+    email VARCHAR(255),
     role TEXT, -- VARCHAR(50) -> TEXT to allow the db to store an XSS script
     avatar_path VARCHAR(512)
+);
+
+CREATE TABLE two_factor_auth_code (
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    code VARCHAR(6) NOT NULL,
+    expiry_date TIMESTAMP NOT NULL,
+    CONSTRAINT fk_2fa_user FOREIGN KEY (username) REFERENCES user_table(username)
 );

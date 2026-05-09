@@ -8,5 +8,8 @@ public record UserInput(
         @NotBlank(message = "Password is required")
         String password,
 
+        @NotBlank(message = "Email is required")
+        String email,
+        
         String avatarUrl
 ) {}

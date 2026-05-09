@@ -4,3 +4,5 @@
 {"@timestamp":"2026-05-02T18:35:16.3409684+02:00","@version":"1","message":"Security event: Failed login attempt for user: string","logger_name":"security","thread_name":"http-nio-3000-exec-5","level":"WARN","level_value":30000}
 {"@timestamp":"2026-05-02T18:35:17.019486+02:00","@version":"1","message":"Security event: Failed login attempt for user: string","logger_name":"security","thread_name":"http-nio-3000-exec-3","level":"WARN","level_value":30000}
 {"@timestamp":"2026-05-02T18:35:17.6688973+02:00","@version":"1","message":"Security event: Failed login attempt for user: string","logger_name":"security","thread_name":"http-nio-3000-exec-4","level":"WARN","level_value":30000}
+{"@timestamp":"2026-05-08T17:41:37.5587656+02:00","@version":"1","message":"Security event: Failed login attempt for user: admin","logger_name":"security","thread_name":"http-nio-3000-exec-7","level":"WARN","level_value":30000}
+{"@timestamp":"2026-05-08T18:12:07.0357052+02:00","@version":"1","message":"Security event: Failed login attempt for user: admin","logger_name":"security","thread_name":"http-nio-3000-exec-3","level":"WARN","level_value":30000}

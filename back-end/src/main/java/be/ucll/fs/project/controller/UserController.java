@@ -70,11 +70,19 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "User login")
-    @ApiResponse(responseCode = "200", description = "Login successful, HttpOnly cookie set")
+    @Operation(summary = "User login step one")
+    @ApiResponse(responseCode = "200", description = "Credentials verified, 2FA code sent")
     @PostMapping("/login")
-    public ResponseEntity<Object> authenticate(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response){
-        var auth = userService.authenticate(authenticationRequest.username(), authenticationRequest.password());
+    public ResponseEntity<Object> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
+        String result = userService.authenticateStepOne(authenticationRequest.username(), authenticationRequest.password());
+        return ResponseEntity.ok().body(Map.of("message", result));
+    }
+
+    @Operation(summary = "User login step two")
+    @ApiResponse(responseCode = "200", description = "2FA verified, HttpOnly cookie set")
+    @PostMapping("/verify")
+    public ResponseEntity<Object> verify(@RequestParam String username, @RequestParam String code, HttpServletResponse response) {
+        var auth = userService.authenticateStepTwo(username, code);
 
         ResponseCookie cookie = ResponseCookie.from("authToken", auth.token())
                 .httpOnly(true)
@@ -85,9 +93,8 @@ public class UserController {
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
-        // Only send the token via the cookie, not in the body
-        auth = new AuthenticationResponse(auth.message(), null, auth.username(), auth.role());
-        return ResponseEntity.ok().body(auth);
+        AuthenticationResponse strippedResponse = new AuthenticationResponse(auth.message(), null, auth.username(), auth.role());
+        return ResponseEntity.ok().body(strippedResponse);
     }
 
     @PostMapping("/{username}/avatar")

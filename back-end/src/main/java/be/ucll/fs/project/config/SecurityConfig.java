@@ -58,7 +58,7 @@ public class SecurityConfig {
                         // Allow all access to error endpoints
                         .requestMatchers("/error/**").permitAll()
                         // Allow all to login and signup
-                        .requestMatchers("/users/login", "/users/signup", "/users/logout").permitAll()
+                        .requestMatchers("/users/login", "/users/signup", "/users/logout", "/users/verify").permitAll()
                         // Allow public avatar serving and the vulnerable SQL injection endpoint
                         .requestMatchers(HttpMethod.GET, "/users/*/avatar", "/vuln/get/user").permitAll()
                         // Avatar upload is public so the red team can demo SSRF without needing auth
