@@ -18,6 +18,9 @@ public class User {
     @NotNull(message = "password cannot be null")
     private String password;
 
+    @NotNull(message = "email cannot be null")
+    private String email;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -26,10 +29,11 @@ public class User {
 
     protected User() {}
 
-    public User(String username, String password, Role role) {
+    public User(String username, String password, String email, Role role) {
         this.setUsername(username);
         this.setPassword(password);
         this.setRole(role);
+        this.setEmail(email);
     }
 
     public String getUsername() {
@@ -55,4 +59,8 @@ public class User {
     public String getAvatarPath() { return avatarPath; }
 
     public void setAvatarPath(String avatarPath) { this.avatarPath = avatarPath; }
+
+    public String getEmail() { return this.email;}
+
+    public void setEmail(String email) { this.email = email;}
 }

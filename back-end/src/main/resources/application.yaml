@@ -29,6 +29,16 @@ spring:
     url: "jdbc:postgresql://localhost:5432/db-project-team-20"
     username: "postgres"
     password: "postgres"
+  
+  mail:
+    host: localhost
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
 
 cors:
   allowed-origins:

@@ -124,27 +124,34 @@ public class DbInitializer {
         //-------------USERS------------------------------------USERS------------------------------------USERS---------------------
         User user1 = new User("admin",
                 passwordEncoder.encode("admin123"),
+                "admin@admin.be",
                 Role.ADMIN);
         User user2 = new User("admin1",
                 passwordEncoder.encode("admin1234"),
+                "admin1@admin.be",
                 Role.ADMIN);
         User user3 = new User("staff",
                 passwordEncoder.encode("staff"),
+                "staff@staff.be",
                 Role.STAFF);
         User user4 = new User("visitor",
                 passwordEncoder.encode("visitor"),
+                "visitor@visitor.be",
                 Role.USER);
 
         User userFinal1 = new User("frits",
                 passwordEncoder.encode("frits123"),
+                "frits@email.be",
                 Role.ADMIN);
 
         User userFinal2 = new User("frans",
                 passwordEncoder.encode("frans123"),
+                "frans@email.be",
                 Role.STAFF);
 
         User userFinal3 = new User("jan",
                 passwordEncoder.encode("jan123"),
+                "jan@email.be",
                 Role.USER);
 
 

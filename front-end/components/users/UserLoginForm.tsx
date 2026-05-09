@@ -9,6 +9,7 @@ import classNames from "classnames";
 import { AuthContext } from "@context/AuthContext";
 import Link from "next/link";
 import { Role } from "@types";
+import TwoFactorForm from "./TwoFactorForm";
 
 const UserLoginForm: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -18,6 +19,7 @@ const UserLoginForm: React.FC = () => {
   const [StatusMessage, setStatusMessage] = useState<StatusMessage[] | null>(
     null
   );
+  const [awaitingTwoFA, setAwaitingTwoFA] = useState(false);
   const router = useRouter();
 
   const context = useContext(AuthContext);
@@ -60,32 +62,27 @@ const UserLoginForm: React.FC = () => {
       role: Role.USER,
     };
     try {
-      const loggedInUser = await UserService.authenticate(unauthenticatedUser);
+      const response = await UserService.authenticate(unauthenticatedUser);
       setStatusMessage([
         {
-          message: "login successful. redirecting to homepage...",
+          message: response?.message || "Verification code sent to your email",
           type: "success",
         },
       ]);
-
-      login(loggedInUser);
-
-      if (
-        loggedInUser?.role === Role.ADMIN ||
-        loggedInUser?.role === Role.STAFF
-      ) {
-        setTimeout(() => {
-          router.push("/admin");
-        }, 1000);
-      } else if (loggedInUser?.role === Role.USER) {
-        setTimeout(() => {
-          router.push("/");
-        }, 1000);
-      }
+      setAwaitingTwoFA(true);
     } catch (error) {
       setStatusMessage([{ message: (error as Error).message, type: "error" }]);
     }
   };
+
+  const handleBackToLogin = () => {
+    setAwaitingTwoFA(false);
+    setStatusMessage(null);
+  };
+
+  if (awaitingTwoFA) {
+    return <TwoFactorForm username={username} onBack={handleBackToLogin} />;
+  }
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>
