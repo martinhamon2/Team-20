@@ -1,0 +1,25 @@
+Method;Endpoint;Description;Auth;Roles Allowed
+POST;/users/signup;Register new user;No;
+POST;/users/login;Login;No;
+POST;/users/logout;Logout;No;
+POST;/users/{username}/avatar;Post avatar for a user;No;
+POST;/users/verify;2FA verification;;
+POST;/users/{username}/password;Password change;Yes;Admin, staff, user
+GET;/users/me;Get logged in user;Yes;Admin, staff, user
+GET;/users/{username}/avatar;Get a users avatar;No;
+;;;;
+GET;/parks;Get all parks;No;
+;;;;
+GET;/attractions;Get all attractions;No;
+GET;/attractions/:id;Get attraction by id;No;
+POST;/attractions;Create new attraction;Yes;Admin, staff
+PUT;/attractions/:id;Update attraction;Yes;Admin
+PUT;/attractions/:id/status;Update attraction status;Yes;Admin, staff
+POST;/attractions/:id/spareparts/:partId;Add spare part to attraction;Yes;Admin
+DELETE;/attractions/:id/spareparts/:partId;Remove spare part from attraction;Yes;Admin
+;;;;
+GET;/spareparts;Get all spare parts;No;
+GET;/spareparts/:id;Get spare part by id;No;
+;;;;
+POST;/vuln/url-validate;URL validation;No;
+GET;/vuln/get/user;Get info of user by username;No;
