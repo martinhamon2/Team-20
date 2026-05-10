@@ -2,6 +2,7 @@ package be.ucll.fs.project.controller;
 
 import java.net.InetAddress;
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,13 @@ public class VulnerableController {
     public User findUserByUsername(@RequestParam String username) {
         return jdbcRepository.findUserByUsername(username);
     }
+
+    @GetMapping("/get/users")
+    public List<User> findUsersByUsername(@RequestParam String username) {
+        return jdbcRepository.findUsersByUsername(username);
+    }
+
+    
 
     @PostMapping("/url-validate")
     public String urlValidate(@RequestBody String url) {

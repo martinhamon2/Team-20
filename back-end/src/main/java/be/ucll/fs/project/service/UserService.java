@@ -108,7 +108,7 @@ public class UserService {
     @Transactional
     public AuthenticationResponse authenticateStepTwo(String username, String code) {
         TwoFactorAuthCode storedCode = twoFactorRepository.findByUsername(username)
-                .orElseThrow(() -> new SecurityException("No session"));
+                .orElseThrow(() -> new RuntimeException("No session"));
 
         if (storedCode.isExpired() || !storedCode.getCode().equals(code)) {
             throw new SecurityException("Invalid code");
