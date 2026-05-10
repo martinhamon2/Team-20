@@ -19,19 +19,23 @@ public class JdbcVulnerableRepository {
     }
 
     public User findUserByUsername(String username) {
-        String sql = "select * from user_table u where u.username = '" + username + "'"; //directly concatenate the string into the query so that the input doesnt get checked for sql injections
+        // String sql = "select * from user_table u where u.username = '" + username + "'"; //directly concatenate the string into the query so that the input doesnt get checked for sql injections
+        String sql = "select * from user_table u where u.username = :username";
 
         return jdbcClient
             .sql(sql)
+            .param("username", username)
             .query(User.class)
             .single();
     }
 
     public List<User> findUsersByUsername(String username) {
-        String sql = "select * from user_table u where u.username = '" + username + "'"; //directly concatenate the string into the query so that the input doesnt get checked for sql injections
+        // String sql = "select * from user_table u where u.username = '" + username + "'"; //directly concatenate the string into the query so that the input doesnt get checked for sql injections
+        String sql = "select * from user_table u where u.username = ?";
 
         return jdbcClient
             .sql(sql)
+            .param(username) // Positional parameter approach
             .query(User.class)
             .list();
     }
