@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:7bab8bef-a8bc-40d0-a9c4-70d4297c6076",
+  "serialNumber": "urn:uuid:3101dd4d-7051-4327-b474-f5283056c7a1",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-05-04T15:12:01Z",
+    "timestamp": "2026-05-10T10:21:08Z",
     "tools": {
       "components": [
         {
@@ -120,6 +120,9 @@
           }
         ],
         "occurrences": [
+          {
+            "location": "components\\users\\TwoFactorForm.tsx#8"
+          },
           {
             "location": "components\\users\\UserLoginForm.tsx#8"
           },
@@ -243,6 +246,9 @@
         ],
         "occurrences": [
           {
+            "location": "app\\[locale]\\profile\\page.tsx#5"
+          },
+          {
             "location": "components\\language\\languageSelector.tsx#4"
           },
           {
@@ -253,6 +259,9 @@
           },
           {
             "location": "components\\permissions\\RoutePermissionWrapper.tsx#6"
+          },
+          {
+            "location": "components\\users\\TwoFactorForm.tsx#6"
           },
           {
             "location": "components\\users\\UserLoginForm.tsx#6"
@@ -320,7 +329,7 @@
         },
         {
           "name": "ImportedModules",
-          "value": "react,useState,react/useState,useMemo,react/useMemo,useEffect,react/useEffect,FormEvent,react/FormEvent,useContext,react/useContext,createContext,react/createContext,ReactNode,react/ReactNode"
+          "value": "react,useState,react/useState,useMemo,react/useMemo,useContext,react/useContext,useEffect,react/useEffect,FormEvent,react/FormEvent,createContext,react/createContext,ReactNode,react/ReactNode"
         }
       ],
       "evidence": {
@@ -346,7 +355,16 @@
             "location": "app\\[locale]\\login\\page.tsx#1"
           },
           {
+            "location": "app\\[locale]\\profile\\page.tsx#3"
+          },
+          {
             "location": "app\\[locale]\\signup\\page.tsx#1"
+          },
+          {
+            "location": "app\\[locale]\\vuln\\page.tsx#3"
+          },
+          {
+            "location": "app\\[locale]\\vuln\\url-validate\\page.tsx#3"
           },
           {
             "location": "components\\attractions\\AdminAttractionOverviewTable.tsx#1"
@@ -398,6 +416,9 @@
           },
           {
             "location": "components\\theme\\themeSelector.tsx#3"
+          },
+          {
+            "location": "components\\users\\TwoFactorForm.tsx#3"
           },
           {
             "location": "components\\users\\UserLoginForm.tsx#3"
@@ -33887,8 +33908,8 @@
           ]
         }
       },
-      "timestamp": "2026-05-04T15:12:01Z",
-      "text": "This Software Bill-of-Materials (SBOM) document was created on Monday, May 4, 2026 with cdxgen. The data was captured during the build lifecycle phase. The document describes an application named 'front-end'. The package type in this SBOM is npm with 21 purl namespaces described under components. The components were identified from the source files: package-lock.json."
+      "timestamp": "2026-05-10T10:21:08Z",
+      "text": "This Software Bill-of-Materials (SBOM) document was created on Sunday, May 10, 2026 with cdxgen. The data was captured during the build lifecycle phase. The document describes an application named 'front-end'. The package type in this SBOM is npm with 21 purl namespaces described under components. The components were identified from the source files: package-lock.json."
     }
   ]
 }
