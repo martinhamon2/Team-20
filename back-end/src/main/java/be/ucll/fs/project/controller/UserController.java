@@ -135,7 +135,6 @@ public class UserController {
         MediaType mediaType = MediaType.IMAGE_JPEG;
         String lower = user.getAvatarPath().toLowerCase();
         if (lower.endsWith(".png"))  mediaType = MediaType.IMAGE_PNG;
-        if (lower.endsWith(".gif"))  mediaType = MediaType.IMAGE_GIF;
         return ResponseEntity.ok().contentType(mediaType).body(resource);
     }
 

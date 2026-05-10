@@ -10,12 +10,13 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 @Service
 public class AvatarService {
     // Stored relative to the working directory of the Spring Boot process
     public static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";
+
+    private static final int MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
     public String downloadAndStore(String username, String avatarUrl) throws Exception {
         String validation = validateUrl(avatarUrl);
@@ -30,20 +31,26 @@ public class AvatarService {
         conn.setReadTimeout(5000);
         conn.setInstanceFollowRedirects(false);
 
-        String contentType = conn.getContentType();
-        String ext = resolveExtension(contentType, avatarUrl);
-
-        String filename = sanitizeUsername(username) + "." + ext;
         Path uploadPath = Paths.get(UPLOAD_DIR);
         Files.createDirectories(uploadPath);
 
         try (InputStream in = conn.getInputStream()) {
-            Files.copy(in, uploadPath.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+            byte[] data = in.readNBytes(MAX_SIZE_BYTES + 1);
+            if (data.length > MAX_SIZE_BYTES) {
+                throw new IllegalArgumentException("Image exceeds maximum allowed size of 5 MB");
+            }
+
+            String ext = detectImageExtension(data);
+            if (ext == null) {
+                throw new IllegalArgumentException("URL does not point to a supported image (PNG, JPEG, GIF, WebP)");
+            }
+
+            String filename = sanitizeUsername(username) + "." + ext;
+            Files.write(uploadPath.resolve(filename), data);
+            return filename;
         } finally {
             conn.disconnect();
         }
-
-        return filename;
     }
 
     public String validateUrl(String url) {
@@ -55,24 +62,50 @@ public class AvatarService {
             if (host == null || scheme == null) return "reject";
             if (!scheme.equals("http") && !scheme.equals("https")) return "reject";
 
+            InetAddress[] addresses = InetAddress.getAllByName(host);
+            for (InetAddress addr : addresses) {
+                if (addr.isLoopbackAddress()
+                        || addr.isSiteLocalAddress()
+                        || addr.isLinkLocalAddress()
+                        || addr.isAnyLocalAddress()
+                        || addr.isMulticastAddress()) {
+                    return "reject";
+                }
+            }
+
             return "allow";
         } catch (Exception e) {
             return "reject";
         }
     }
 
-    private String resolveExtension(String contentType, String url) {
-        if (contentType != null) {
-            if (contentType.contains("png"))  return "png";
-            if (contentType.contains("gif"))  return "gif";
-            if (contentType.contains("webp")) return "webp";
-            if (contentType.contains("jpeg") || contentType.contains("jpg")) return "jpg";
+    private String detectImageExtension(byte[] data) {
+        if (data == null || data.length < 4) return null;
+
+        if (data.length >= 8
+                && (data[0] & 0xFF) == 0x89
+                && data[1] == 'P' && data[2] == 'N' && data[3] == 'G'
+                && data[4] == 0x0D && data[5] == 0x0A
+                && (data[6] & 0xFF) == 0x1A && data[7] == 0x0A) {
+            return "png";
         }
-        String lower = url.toLowerCase();
-        if (lower.contains(".png"))  return "png";
-        if (lower.contains(".gif"))  return "gif";
-        if (lower.contains(".webp")) return "webp";
-        return "jpg";
+
+        if ((data[0] & 0xFF) == 0xFF && (data[1] & 0xFF) == 0xD8 && (data[2] & 0xFF) == 0xFF) {
+            return "jpg";
+        }
+
+        if (data[0] == 'G' && data[1] == 'I' && data[2] == 'F'
+                && data[3] == '8' && (data[4] == '7' || data[4] == '9') && data[5] == 'a') {
+            return "gif";
+        }
+
+        if (data.length >= 12
+                && data[0] == 'R' && data[1] == 'I' && data[2] == 'F' && data[3] == 'F'
+                && data[8] == 'W' && data[9] == 'E' && data[10] == 'B' && data[11] == 'P') {
+            return "webp";
+        }
+
+        return null;
     }
 
     private String sanitizeUsername(String username) {
