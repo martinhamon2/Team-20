@@ -29,3 +29,23 @@ spring:
     username: <db-username>
     password: <db-password>
 ```
+
+## Docker containers
+As a prerequisite you must have installed docker and have it running on your device.
+
+### Filebeat / elasticsearch / kibana
+In your terminal cd into the "elk" directory and run the docker filler like this 
+
+```
+cd .\back-end\elk\
+docker compose up -d
+```
+
+### Mailhog
+
+In your terminal cd into the "mailhog" directory and run the docker filler like this 
+
+```
+cd .\back-end\mailhog\
+docker compose up -d
+```
