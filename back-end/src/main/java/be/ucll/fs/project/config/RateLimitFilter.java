@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.google.common.util.concurrent.RateLimiter;
@@ -14,15 +13,22 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Component
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class RateLimitFilter extends OncePerRequestFilter {
+    private static final Logger log = LoggerFactory.getLogger(RateLimitFilter.class);
     private final Map<String, RateLimiter> limiters = new ConcurrentHashMap<>();
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String ip = request.getRemoteAddr();
-        RateLimiter limiter = limiters.computeIfAbsent(ip,k -> RateLimiter.create(10.0));
-        if (limiter.tryAcquire()) {chain.doFilter(request, response);} else {
+        RateLimiter limiter = limiters.computeIfAbsent(ip, k -> RateLimiter.create(10.0));
+        
+        if (limiter.tryAcquire()) {
+            chain.doFilter(request, response);
+        } else {
+            log.warn("Rate limit exceeded for IP: {}", ip);
             response.setStatus(429);
             response.getWriter().write("Too many requests");
         }
