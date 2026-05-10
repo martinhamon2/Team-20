@@ -55,9 +55,8 @@ export default function UserInformationViewer() {
 
       {username && role && (
         <div>
-          {/* XSS vulnerability here because the username and role get passed to the innerHTML directly */}
-          <p>user name: <span dangerouslySetInnerHTML={{ __html: username }} className='text-purple-700 font-bold' /></p> 
-          <p>user info: <span dangerouslySetInnerHTML={{ __html: role }} className='text-purple-700 font-bold'/></p> 
+          <p>user name: <span className='text-purple-700 font-bold'>{username}</span></p> 
+          <p>user info: <span className='text-purple-700 font-bold'>{role}</span></p> 
         </div>
       )}
     </main>
